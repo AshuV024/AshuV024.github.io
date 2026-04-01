@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ashutosh Varshney — SDE Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0B1629;--navy2:#142038;--navy3:#1e2f4a;
+    --gold:#C9A84C;--gold2:#e8c76d;
+    --white:#F7F5F0;--muted:#9BA8BB;--accent:#4A8CF7;
+    --font-heading:'DM Serif Display',serif;
+    --font-body:'DM Sans',sans-serif;
+    --font-mono:'DM Mono',monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--white);font-family:var(--font-body);font-size:16px;line-height:1.6;overflow-x:hidden}
+
+  nav{position:sticky;top:0;z-index:100;background:rgba(11,22,41,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,168,76,0.15);display:flex;justify-content:space-between;align-items:center;padding:1rem 3rem}
+  .nav-logo{font-family:var(--font-mono);font-size:14px;color:var(--gold);letter-spacing:0.08em}
+  .nav-links{display:flex;gap:2rem}
+  .nav-links a{font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s}
+  .nav-links a:hover{color:var(--gold)}
+
+  section{padding:5rem 3rem;max-width:1100px;margin:0 auto}
+
+  .hero{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding-top:4rem;padding-bottom:4rem;position:relative}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,168,76,0.35);border-radius:2px;padding:6px 14px;font-family:var(--font-mono);font-size:12px;color:var(--gold);margin-bottom:2rem;letter-spacing:0.06em}
+  .hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  h1.hero-name{font-family:var(--font-heading);font-size:clamp(3rem,8vw,6.5rem);line-height:1;color:var(--white);margin-bottom:0.5rem}
+  h1.hero-name em{color:var(--gold);font-style:italic}
+  .hero-title{font-family:var(--font-mono);font-size:14px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+  .hero-desc{max-width:560px;color:#b0bccf;font-size:17px;line-height:1.75;margin-bottom:2.5rem}
+  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:var(--gold);color:var(--navy);padding:12px 28px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.06em;text-decoration:none;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s}
+  .btn-primary:hover{background:var(--gold2);transform:translateY(-1px)}
+  .btn-outline{border:1px solid rgba(201,168,76,0.5);color:var(--gold);padding:12px 28px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.06em;text-decoration:none;transition:border-color 0.2s,background 0.2s}
+  .btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,0.08)}
+  .hero-stats{display:flex;gap:3rem;margin-top:3.5rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.08)}
+  .stat-num{font-family:var(--font-heading);font-size:2.2rem;color:var(--gold)}
+  .stat-label{font-size:12px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase}
+
+  .section-label{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.75rem}
+  h2.section-title{font-family:var(--font-heading);font-size:clamp(2rem,4vw,3rem);color:var(--white);margin-bottom:3rem;line-height:1.1}
+  h2.section-title em{color:var(--gold);font-style:italic}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+  .about-text p{color:#b0bccf;font-size:16px;line-height:1.8;margin-bottom:1.25rem}
+  .info-list{list-style:none}
+  .info-list li{display:flex;gap:1rem;padding:0.75rem 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px}
+  .info-list li span:first-child{color:var(--muted);min-width:90px;font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;padding-top:1px}
+  .info-list li a{color:var(--gold);text-decoration:none}
+  .info-list li a:hover{text-decoration:underline}
+
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem}
+  .skill-card{background:var(--navy2);border:1px solid rgba(255,255,255,0.07);padding:1.5rem;transition:border-color 0.2s,transform 0.2s}
+  .skill-card:hover{border-color:rgba(201,168,76,0.3);transform:translateY(-2px)}
+  .skill-category{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:4px 10px;font-size:12px;font-family:var(--font-mono);color:#b0bccf;border-radius:2px}
+
+  .exp-item{display:grid;grid-template-columns:120px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .exp-date{font-family:var(--font-mono);font-size:12px;color:var(--muted);padding-top:4px;letter-spacing:0.04em}
+  .exp-company{font-family:var(--font-mono);font-size:12px;color:var(--gold);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.35rem}
+  .exp-role{font-family:var(--font-heading);font-size:1.4rem;color:var(--white);margin-bottom:0.25rem}
+  .exp-location{font-size:13px;color:var(--muted);margin-bottom:1rem}
+  .exp-points{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+  .exp-points li{font-size:14px;color:#b0bccf;padding-left:1.25rem;position:relative;line-height:1.6}
+  .exp-points li::before{content:'—';position:absolute;left:0;color:var(--gold);font-size:12px}
+
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+  .project-card{background:var(--navy2);border:1px solid rgba(255,255,255,0.07);padding:2rem;transition:border-color 0.2s,transform 0.2s;position:relative;overflow:hidden}
+  .project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity 0.2s}
+  .project-card:hover{border-color:rgba(201,168,76,0.25);transform:translateY(-3px)}
+  .project-card:hover::before{opacity:1}
+  .project-num{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem}
+  .project-name{font-family:var(--font-heading);font-size:1.4rem;color:var(--white);margin-bottom:0.75rem}
+  .project-desc{font-size:14px;color:#9BA8BB;line-height:1.7;margin-bottom:1.25rem}
+  .project-stack{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1.25rem}
+  .stack-tag{font-family:var(--font-mono);font-size:11px;color:var(--gold);background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);padding:3px 8px;border-radius:2px}
+
+  .edu-card{background:var(--navy2);border:1px solid rgba(255,255,255,0.07);padding:2rem;display:flex;justify-content:space-between;align-items:start;gap:2rem;flex-wrap:wrap}
+  .edu-degree{font-family:var(--font-heading);font-size:1.5rem;color:var(--white);margin-bottom:0.35rem}
+  .edu-school{font-size:14px;color:var(--muted);margin-bottom:0.5rem}
+  .edu-cgpa{font-family:var(--font-mono);font-size:13px;color:var(--gold)}
+  .edu-year{font-family:var(--font-mono);font-size:12px;color:var(--muted);text-align:right}
+
+  .ach-list{display:flex;flex-direction:column;gap:1rem}
+  .ach-item{display:flex;gap:1.5rem;align-items:flex-start;padding:1.25rem;background:var(--navy2);border:1px solid rgba(255,255,255,0.07)}
+  .ach-icon{width:36px;height:36px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px}
+  .ach-text{font-size:14px;color:#b0bccf;line-height:1.6}
+
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+  .contact-intro{font-size:17px;color:#b0bccf;line-height:1.8;margin-bottom:2rem}
+  .contact-links{display:flex;flex-direction:column;gap:1rem}
+  .contact-link{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--navy2);border:1px solid rgba(255,255,255,0.07);text-decoration:none;transition:border-color 0.2s}
+  .contact-link:hover{border-color:rgba(201,168,76,0.35)}
+  .contact-link-label{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:2px}
+  .contact-link-value{font-size:14px;color:var(--gold)}
+
+  footer{border-top:1px solid rgba(255,255,255,0.06);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto}
+  footer p{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+  .divider{border:none;border-top:1px solid rgba(255,255,255,0.06);margin:0}
+
+  @media(max-width:768px){
+    nav{padding:1rem 1.5rem}
+    .nav-links{gap:1rem}
+    section{padding:3.5rem 1.5rem}
+    .about-grid,.contact-grid{grid-template-columns:1fr}
+    .exp-item{grid-template-columns:1fr}
+    .hero-stats{gap:1.5rem}
+    footer{flex-direction:column;gap:0.5rem;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AV.dev</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge"><span></span> Open to SDE roles · Graduating 2026</div>
+  <h1 class="hero-name">Ashutosh<br/><em>Varshney</em></h1>
+  <p class="hero-title">Full-Stack Developer &amp; SDE Candidate</p>
+  <p class="hero-desc">Final-year B.Tech CSE (AI &amp; ML) student building scalable backend systems and full-stack web products. Proficient in the MERN stack, RESTful APIs, and secure authentication.</p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View Projects</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">10+</div><div class="stat-label">APIs Built</div></div>
+    <div><div class="stat-num">200+</div><div class="stat-label">DSA Problems</div></div>
+    <div><div class="stat-num">8.0</div><div class="stat-label">CGPA</div></div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="about">
+  <p class="section-label">001 — About</p>
+  <h2 class="section-title">Building things<br/>that <em>actually work</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a final-year Computer Science student specialising in AI &amp; ML at G L Bajaj Group of Institutions. My focus is backend engineering and full-stack web development, with real internship experience shipping production code.</p>
+      <p>During my internship at Webninjaz Technologies, I built and integrated 10+ RESTful APIs for a Forex trading platform, implemented JWT-based RBAC, and shipped features in an Agile team. I enjoy working on systems where security, architecture, and clean code matter.</p>
+      <p>Outside work, I consistently solve DSA problems on LeetCode and GeeksforGeeks and share projects on GitHub.</p>
+    </div>
+    <ul class="info-list">
+      <li><span>Email</span><a href="mailto:varshneyashutosh024@gmail.com">varshneyashutosh024@gmail.com</a></li>
+      <li><span>Phone</span><span>+91-7037897603</span></li>
+      <li><span>LinkedIn</span><a href="https://linkedin.com/in/ashutosh024" target="_blank">ashutosh024</a></li>
+      <li><span>GitHub</span><a href="https://github.com/AshuV024" target="_blank">AshuV024</a></li>
+      <li><span>Location</span><span>India</span></li>
+      <li><span>Status</span><span style="color:var(--gold)">Actively looking · 2026</span></li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="skills">
+  <p class="section-label">002 — Skills</p>
+  <h2 class="section-title">Tech <em>stack</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-category">Languages</div>
+      <div class="skill-tags">
+        <span class="tag">C</span><span class="tag">C++</span><span class="tag">JavaScript</span><span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Frontend</div>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">React.js</span><span class="tag">Responsive Design</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Backend</div>
+      <div class="skill-tags">
+        <span class="tag">Node.js</span><span class="tag">Express.js</span><span class="tag">RESTful APIs</span><span class="tag">JWT</span><span class="tag">Passport.js</span><span class="tag">MVC</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Databases</div>
+      <div class="skill-tags">
+        <span class="tag">MongoDB</span><span class="tag">Mongoose</span><span class="tag">MySQL</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Tools</div>
+      <div class="skill-tags">
+        <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Postman</span><span class="tag">VS Code</span><span class="tag">Render</span><span class="tag">MongoDB Atlas</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Core CS</div>
+      <div class="skill-tags">
+        <span class="tag">DSA</span><span class="tag">OOPs</span><span class="tag">DBMS</span><span class="tag">OS</span><span class="tag">Networks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="experience">
+  <p class="section-label">003 — Experience</p>
+  <h2 class="section-title">Where I've<br/><em>shipped</em> code</h2>
+  <div class="exp-item">
+    <div class="exp-date">Aug – Oct 2025</div>
+    <div>
+      <div class="exp-company">Webninjaz Technologies</div>
+      <div class="exp-role">Associate Developer Intern</div>
+      <div class="exp-location">Noida, India</div>
+      <ul class="exp-points">
+        <li>Built and integrated 10+ RESTful APIs using Node.js and Express.js for a full-stack Forex trading platform supporting User, Agent, and Admin role-based workflows.</li>
+        <li>Implemented JWT-based authentication and RBAC, securing all protected routes and managing session lifecycle end-to-end.</li>
+        <li>Developed dynamic UI components with real-time data rendering; collaborated in an Agile team using Git for version control across sprint-based releases.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="projects">
+  <p class="section-label">004 — Projects</p>
+  <h2 class="section-title">Things I've<br/><em>built</em></h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">Project 01</div>
+      <div class="project-name">Airbnb Clone</div>
+      <p class="project-desc">Full-stack property rental platform with complete CRUD operations — listing, editing, deletion, and booking management with secure session handling. Deployed live on Render with MongoDB Atlas.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">Express.js</span>
+        <span class="stack-tag">MongoDB</span>
+        <span class="stack-tag">Mongoose</span>
+        <span class="stack-tag">Passport.js</span>
+        <span class="stack-tag">Render</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">Project 02</div>
+      <div class="project-name">JWT-Protected Web App</div>
+      <p class="project-desc">Secure authentication system with bcrypt hashing (10+ salt rounds), 1-hour token expiry, and JWT middleware securing 100% of protected routes. Zero hardcoded secrets via .env configuration.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">Express.js</span>
+        <span class="stack-tag">JWT</span>
+        <span class="stack-tag">bcrypt</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="education">
+  <p class="section-label">005 — Education</p>
+  <h2 class="section-title">Academic<br/><em>background</em></h2>
+  <div class="edu-card">
+    <div>
+      <div class="edu-degree">B.Tech — CSE (AI &amp; ML)</div>
+      <div class="edu-school">G L Bajaj Group of Institutions</div>
+      <div class="edu-cgpa">CGPA: 8.0 / 10</div>
+    </div>
+    <div class="edu-year">Expected<br/>2026</div>
+  </div>
+  <div style="margin-top:2.5rem">
+    <p class="section-label" style="margin-bottom:1.25rem">Achievements</p>
+    <div class="ach-list">
+      <div class="ach-item">
+        <div class="ach-icon">&#x1F9E9;</div>
+        <div class="ach-text">Solved 200+ DSA problems on LeetCode and GeeksforGeeks, focusing on arrays, trees, graphs, and dynamic programming with emphasis on time and space complexity.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-icon">&#x1F4BB;</div>
+        <div class="ach-text">Actively building and publishing backend and full-stack projects on GitHub — <a href="https://github.com/AshuV024" style="color:var(--gold);text-decoration:none" target="_blank">github.com/AshuV024</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider"/>
+
+<section id="contact">
+  <p class="section-label">006 — Contact</p>
+  <h2 class="section-title">Let's <em>connect</em></h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">I'm actively seeking SDE roles at product-based companies and startups. If you're hiring or want to collaborate, I'd love to hear from you.</p>
+      <a href="mailto:varshneyashutosh024@gmail.com" class="btn-primary" style="display:inline-block">Send an Email</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:varshneyashutosh024@gmail.com" class="contact-link">
+        <div><span class="contact-link-label">Email</span><span class="contact-link-value">varshneyashutosh024@gmail.com</span></div>
+      </a>
+      <a href="https://linkedin.com/in/ashutosh024" target="_blank" class="contact-link">
+        <div><span class="contact-link-label">LinkedIn</span><span class="contact-link-value">linkedin.com/in/ashutosh024</span></div>
+      </a>
+      <a href="https://github.com/AshuV024" target="_blank" class="contact-link">
+        <div><span class="contact-link-label">GitHub</span><span class="contact-link-value">github.com/AshuV024</span></div>
+      </a>
+      <div class="contact-link" style="cursor:default">
+        <div><span class="contact-link-label">Phone</span><span class="contact-link-value">+91-7037897603</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Ashutosh Varshney</p>
+  <p>Built for SDE opportunities · Open to work</p>
+</footer>
+
+</body>
+</html>
